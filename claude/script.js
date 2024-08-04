@@ -1,0 +1,109 @@
+const tutorial = [
+    {
+        title: "1. Firewalls",
+        content: "Firewalls are a crucial component of network security. They act as a barrier between trusted internal networks and untrusted external networks, such as the internet. Firewalls control incoming and outgoing network traffic based on predetermined security rules. In the context of Cyber Essentials, every device within the scope must be protected by a correctly configured firewall.",
+        questions: [
+            {
+                question: "What is the primary function of a firewall?",
+                options: ["Block all internet access", "Control network traffic", "Speed up internet connection", "Encrypt data"],
+                correctAnswer: 1
+            },
+            {
+                question: "According to Cyber Essentials, which devices need firewall protection?",
+                options: ["Only servers", "Only desktop computers", "All devices within scope", "Only devices with internet access"],
+                correctAnswer: 2
+            }
+        ]
+    },
+    {
+        title: "2. Secure Configuration",
+        content: "Secure configuration involves setting up computers and network devices to reduce vulnerabilities and provide only the services required to fulfil their role. This includes removing or disabling unnecessary functionality, changing default passwords, and ensuring that appropriate access controls are in place. Proper configuration is essential to minimize the attack surface and protect against common cyber threats.",
+        questions: [
+            {
+                question: "What is a key aspect of secure configuration?",
+                options: ["Installing all available software", "Keeping default settings", "Removing unnecessary functionality", "Sharing passwords among users"],
+                correctAnswer: 2
+            },
+            {
+                question: "Why is changing default passwords important?",
+                options: ["To make the system faster", "To comply with color schemes", "To reduce the risk of unauthorized access", "To use more disk space"],
+                correctAnswer: 2
+            }
+        ]
+    }
+];
+
+let currentSection = 0;
+let currentQuestion = 0;
+let score = 0;
+
+function displaySection(index) {
+    const section = tutorial[index];
+    let html = `<h2>${section.title}</h2><p>${section.content}</p>`;
+    html += '<button onclick="displayQuestion()">Start Quiz</button>';
+    document.getElementById('content').innerHTML = html;
+}
+
+function displayQuestion() {
+    const section = tutorial[currentSection];
+    const question = section.questions[currentQuestion];
+    let html = `<h2>${section.title} - Question ${currentQuestion + 1}</h2>`;
+    html += `<p>${question.question}</p>`;
+    question.options.forEach((option, i) => {
+        html += `<input type="radio" name="q" value="${i}"> ${option}<br>`;
+    });
+    html += '<button onclick="checkAnswer()">Submit Answer</button>';
+    html += '<div id="feedback"></div>';
+    document.getElementById('content').innerHTML = html;
+}
+
+function checkAnswer() {
+    const section = tutorial[currentSection];
+    const question = section.questions[currentQuestion];
+    const selected = document.querySelector('input[name="q"]:checked');
+    const feedbackElement = document.getElementById('feedback');
+
+    if (selected) {
+        if (parseInt(selected.value) === question.correctAnswer) {
+            score++;
+            feedbackElement.innerHTML = "Correct!";
+            feedbackElement.style.color = "green";
+        } else {
+            feedbackElement.innerHTML = "Incorrect. The correct answer is: " + question.options[question.correctAnswer];
+            feedbackElement.style.color = "red";
+        }
+
+        setTimeout(() => {
+            currentQuestion++;
+            if (currentQuestion < section.questions.length) {
+                displayQuestion();
+            } else {
+                showSectionSummary();
+            }
+        }, 2000);
+    } else {
+        feedbackElement.innerHTML = "Please select an answer.";
+        feedbackElement.style.color = "orange";
+    }
+}
+
+function showSectionSummary() {
+    const section = tutorial[currentSection];
+    let html = `<h2>${section.title} - Quiz Completed</h2>`;
+    html += `<p>You scored ${score} out of ${section.questions.length}</p>`;
+    html += '<button onclick="nextSection()">Next Section</button>';
+    document.getElementById('content').innerHTML = html;
+}
+
+function nextSection() {
+    currentSection++;
+    currentQuestion = 0;
+    score = 0;
+    if (currentSection < tutorial.length) {
+        displaySection(currentSection);
+    } else {
+        document.getElementById('content').innerHTML = '<h2>Tutorial Completed!</h2>';
+    }
+}
+
+displaySection(currentSection);

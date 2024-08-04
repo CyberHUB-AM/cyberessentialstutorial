@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Essentials Tutorial</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cyber Essentials Tutorial</h1>
+        <section id="section1" class="content-section">
+            <h2>Introduction</h2>
+            <p>Welcome to the Cyber Essentials tutorial. This tutorial will guide you through the basic concepts and requirements for securing your IT infrastructure.</p>
+            <button onclick="nextSection()">Next</button>
+        </section>
+
+        <section id="section2" class="content-section">
+            <h3>1. Firewalls</h3>
+            <p>Firewalls are essential for protecting your network by controlling the incoming and outgoing traffic based on predetermined security rules. They help prevent unauthorized access to your network.</p>
+            <div class="quiz">
+                <h4>Quiz: Firewalls</h4>
+                <p>What is the primary purpose of a firewall?</p>
+                <button onclick="checkAnswer('a', 'section2', 'feedback1')">a) To speed up the network</button>
+                <button onclick="checkAnswer('b', 'section2', 'feedback1')">b) To control incoming and outgoing traffic</button>
+                <button onclick="checkAnswer('c', 'section2', 'feedback1')">c) To store data</button>
+                <p id="feedback1"></p>
+            </div>
+            <button onclick="prevSection()">Previous</button>
+            <button onclick="nextSection()">Next</button>
+        </section>
+
+        <section id="section3" class="content-section">
+            <h3>2. Secure Configuration</h3>
+            <p>Ensuring that your devices and software are configured securely is crucial. This includes removing unnecessary software, changing default passwords, and disabling auto-run features.</p>
+            <div class="quiz">
+                <h4>Quiz: Secure Configuration</h4>
+                <p>Why is it important to change default passwords on devices?</p>
+                <button onclick="checkAnswer('a', 'section3', 'feedback2')">a) To improve device performance</button>
+                <button onclick="checkAnswer('b', 'section3', 'feedback2')">b) To prevent unauthorized access</button>
+                <button onclick="checkAnswer('c', 'section3', 'feedback2')">c) To save storage space</button>
+                <p id="feedback2"></p>
+            </div>
+            <button onclick="prevSection()">Previous</button>
+            <button onclick="nextSection()">Next</button>
+        </section>
+
+        <!-- Additional sections can be added here -->
+
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
